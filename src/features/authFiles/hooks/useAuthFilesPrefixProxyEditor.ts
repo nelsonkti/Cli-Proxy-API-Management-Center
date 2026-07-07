@@ -7,6 +7,7 @@ import {
   applyCodexAuthFileWebsockets,
   normalizeProviderKey,
   parsePriorityValue,
+  parseWeightValue,
   readCodexAuthFileWebsockets,
 } from '@/features/authFiles/constants';
 
@@ -23,6 +24,8 @@ export type PrefixProxyEditorField =
   | 'prefix'
   | 'proxyUrl'
   | 'priority'
+  | 'weight'
+  | 'quotaCooldownThreshold'
   | 'websockets'
   | 'note'
   | 'headersText';
@@ -43,6 +46,10 @@ export type PrefixProxyEditorState = {
   prefix: string;
   proxyUrl: string;
   priority: string;
+  weight: string;
+  weightTouched: boolean;
+  quotaCooldownThreshold: string;
+  quotaCooldownThresholdTouched: boolean;
   websockets: boolean;
   websocketsTouched: boolean;
   note: string;
@@ -248,6 +255,24 @@ const buildAuthFileFieldsPatch = (
     }
   }
 
+  if (editor.weightTouched) {
+    const originalWeight = parseWeightValue(original.weight) ?? 0;
+    const weightText = editor.weight.trim();
+    const nextWeight = parseWeightValue(weightText) ?? 0;
+    if (nextWeight !== originalWeight) {
+      patch.weight = nextWeight;
+    }
+  }
+
+  if (editor.quotaCooldownThresholdTouched) {
+    const originalThreshold = parseWeightValue(original.quota_cooldown_threshold) ?? 0;
+    const thresholdText = editor.quotaCooldownThreshold.trim();
+    const nextThreshold = parseWeightValue(thresholdText) ?? 0;
+    if (nextThreshold !== originalThreshold) {
+      patch.quota_cooldown_threshold = nextThreshold;
+    }
+  }
+
   if (editor.noteTouched) {
     const originalNote = normalizeTextField(original.note);
     const nextNote = editor.note.trim();
@@ -308,6 +333,18 @@ const buildPrefixProxyUpdatedText = (
       delete next.priority;
     } else {
       next.priority = patch.priority;
+    }
+  }
+
+  if (patch.weight !== undefined) {
+    next.weight = patch.weight;
+  }
+
+  if (patch.quota_cooldown_threshold !== undefined) {
+    if (patch.quota_cooldown_threshold === 0) {
+      delete next.quota_cooldown_threshold;
+    } else {
+      next.quota_cooldown_threshold = patch.quota_cooldown_threshold;
     }
   }
 
@@ -380,6 +417,10 @@ export function useAuthFilesPrefixProxyEditor(
       prefix: '',
       proxyUrl: '',
       priority: '',
+      weight: '0',
+      weightTouched: false,
+      quotaCooldownThreshold: '0',
+      quotaCooldownThresholdTouched: false,
       websockets: false,
       websocketsTouched: false,
       note: '',
@@ -426,6 +467,8 @@ export function useAuthFilesPrefixProxyEditor(
       const prefix = typeof json.prefix === 'string' ? json.prefix : '';
       const proxyUrl = typeof json.proxy_url === 'string' ? json.proxy_url : '';
       const priority = parsePriorityValue(json.priority);
+      const weight = parseWeightValue(json.weight) ?? 0;
+      const quotaCooldownThreshold = parseWeightValue(json.quota_cooldown_threshold) ?? 0;
       const websockets = providerKey === 'codex' ? readCodexAuthFileWebsockets(json) : false;
       const note = typeof json.note === 'string' ? json.note : '';
       const headers = json.headers;
@@ -450,6 +493,10 @@ export function useAuthFilesPrefixProxyEditor(
           prefix,
           proxyUrl,
           priority: priority !== undefined ? String(priority) : '',
+          weight: String(weight),
+          weightTouched: false,
+          quotaCooldownThreshold: String(quotaCooldownThreshold),
+          quotaCooldownThresholdTouched: false,
           websockets,
           websocketsTouched: false,
           note,
@@ -479,6 +526,13 @@ export function useAuthFilesPrefixProxyEditor(
       if (field === 'prefix') return { ...prev, prefix: String(value) };
       if (field === 'proxyUrl') return { ...prev, proxyUrl: String(value) };
       if (field === 'priority') return { ...prev, priority: String(value) };
+      if (field === 'weight') return { ...prev, weight: String(value), weightTouched: true };
+      if (field === 'quotaCooldownThreshold')
+        return {
+          ...prev,
+          quotaCooldownThreshold: String(value),
+          quotaCooldownThresholdTouched: true,
+        };
       if (field === 'websockets') {
         return { ...prev, websockets: Boolean(value), websocketsTouched: true };
       }

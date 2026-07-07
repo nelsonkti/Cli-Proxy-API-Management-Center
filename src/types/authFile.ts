@@ -34,6 +34,13 @@ export interface AuthFileItem {
   modified?: number;
   success?: unknown;
   failed?: unknown;
+  priority?: number | string;
+  weight?: number | string;
+  effective_weight?: number | string;
+  consecutive_fails?: number;
+  note?: string;
+  imported_at?: string | number;
+  survival_days?: number;
   recent_requests?: RecentRequestBucket[];
   recentRequests?: RecentRequestBucket[];
   [key: string]: unknown;

@@ -38,6 +38,7 @@ import {
   isRuntimeOnlyAuthFile,
   normalizeProviderKey,
   parsePriorityValue,
+  parseWeightValue,
   type QuotaProviderType,
   type ResolvedTheme,
 } from '@/features/authFiles/constants';
@@ -411,6 +412,7 @@ export function AuthFilesPage() {
       { value: 'default', label: t('auth_files.sort_default') },
       { value: 'az', label: t('auth_files.sort_az') },
       { value: 'priority', label: t('auth_files.sort_priority') },
+      { value: 'weight', label: t('auth_files.sort_weight') },
     ],
     [t]
   );
@@ -463,6 +465,12 @@ export function AuthFilesPage() {
         const pa = parsePriorityValue(a.priority) ?? 0;
         const pb = parsePriorityValue(b.priority) ?? 0;
         return pb - pa; // 高优先级排前面
+      });
+    } else if (sortMode === 'weight') {
+      copy.sort((a, b) => {
+        const wa = parseWeightValue(a.weight) ?? 1;
+        const wb = parseWeightValue(b.weight) ?? 1;
+        return wb - wa; // 高权重排前面
       });
     }
     return copy;

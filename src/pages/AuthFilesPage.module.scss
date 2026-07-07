@@ -1377,6 +1377,73 @@
   font-variant-numeric: tabular-nums;
 }
 
+.weightBadge {
+  min-width: 0;
+}
+
+.weightValue {
+  font-variant-numeric: tabular-nums;
+}
+
+.weightBadgeDecayed {
+  .weightEffective {
+    color: var(--warning-color, #f59e0b);
+    font-weight: 700;
+  }
+  .weightSeparator {
+    color: var(--text-tertiary);
+    margin: 0 1px;
+  }
+  .weightBase {
+    color: var(--text-tertiary);
+    text-decoration: line-through;
+    font-weight: 400;
+  }
+}
+
+.survivalBadge {
+  min-width: 0;
+}
+
+.survivalValue {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.survivalSeparator {
+  margin: 0 4px;
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+
+.survivalBadgeNew .survivalValue {
+  color: var(--text-secondary);
+}
+
+.survivalBadgeStable .survivalValue {
+  color: var(--info-color, #2563eb);
+}
+
+.survivalBadgeSenior .survivalValue {
+  color: var(--success-color, #059669);
+}
+
+.survivalBadgeVeteran .survivalValue {
+  color: #b8860b;
+}
+
+:global([data-theme='dark']) .survivalBadgeStable .survivalValue {
+  color: #60a5fa;
+}
+
+:global([data-theme='dark']) .survivalBadgeSenior .survivalValue {
+  color: #34d399;
+}
+
+:global([data-theme='dark']) .survivalBadgeVeteran .survivalValue {
+  color: #ffd862;
+}
+
 .noteText {
   font-size: 12px;
   color: var(--text-secondary);

@@ -30,6 +30,7 @@ import {
   isRuntimeOnlyAuthFile,
   normalizeProviderKey,
   parsePriorityValue,
+  parseWeightValue,
   type QuotaProviderType,
   type ResolvedTheme,
 } from '@/features/authFiles/constants';
@@ -38,6 +39,10 @@ import { AuthFileQuotaSection } from '@/features/authFiles/components/AuthFileQu
 import styles from '@/pages/AuthFilesPage.module.scss';
 
 const HEALTHY_STATUS_MESSAGES = new Set(['ok', 'healthy', 'ready', 'success', 'available']);
+
+const STATUS_MESSAGE_I18N_KEYS: Record<string, string> = {
+  'quota threshold cooldown': 'auth_files.status_message_quota_threshold_cooldown',
+};
 
 export type AuthFileCardProps = {
   file: AuthFileItem;
@@ -122,9 +127,43 @@ export function AuthFileCard(props: AuthFileCardProps) {
   const rawStatusMessage = getAuthFileStatusMessage(file);
   const hasStatusWarning =
     Boolean(rawStatusMessage) && !HEALTHY_STATUS_MESSAGES.has(rawStatusMessage.toLowerCase());
+  const statusMessageI18nKey = STATUS_MESSAGE_I18N_KEYS[rawStatusMessage.toLowerCase()];
+  const displayStatusMessage = statusMessageI18nKey ? t(statusMessageI18nKey) : rawStatusMessage;
 
   const priorityValue = parsePriorityValue(file.priority ?? file['priority']);
+  const weightValue = parseWeightValue(file.weight ?? file['weight']);
+  const effectiveWeightValue = parseWeightValue(file.effective_weight ?? file['effective_weight']);
+  const isWeightDecayed =
+    weightValue !== undefined &&
+    weightValue > 0 &&
+    effectiveWeightValue !== undefined &&
+    effectiveWeightValue < weightValue;
+  const displayWeight = weightValue !== undefined && weightValue > 0 ? weightValue : undefined;
   const noteValue = typeof file.note === 'string' ? file.note.trim() : '';
+  const rawSurvivalDays = file.survival_days ?? file['survival_days'];
+  const survivalDays =
+    typeof rawSurvivalDays === 'number' && Number.isFinite(rawSurvivalDays) && rawSurvivalDays >= 0
+      ? Math.floor(rawSurvivalDays)
+      : undefined;
+  // Tier the account age into badges using >= boundaries: 30, 20, 7 days.
+  const survivalTier =
+    survivalDays === undefined
+      ? undefined
+      : survivalDays >= 30
+        ? 'veteran'
+        : survivalDays >= 20
+          ? 'senior'
+          : survivalDays >= 7
+            ? 'stable'
+            : 'new';
+  const survivalBadgeClass = survivalTier
+    ? {
+        veteran: styles.survivalBadgeVeteran,
+        senior: styles.survivalBadgeSenior,
+        stable: styles.survivalBadgeStable,
+        new: styles.survivalBadgeNew,
+      }[survivalTier]
+    : undefined;
   const stateLabel = isRuntimeOnly
     ? t('auth_files.type_virtual') || '虚拟认证文件'
     : file.disabled
@@ -221,12 +260,51 @@ export function AuthFileCard(props: AuthFileCardProps) {
                 </span>
               </div>
             )}
+            {displayWeight !== undefined && (
+              <div
+                className={`${styles.metaItem} ${styles.weightBadge} ${isWeightDecayed ? styles.weightBadgeDecayed : ''}`}
+                title={
+                  isWeightDecayed
+                    ? t('auth_files.weight_decayed_hint', {
+                        base: displayWeight,
+                        effective: effectiveWeightValue,
+                      })
+                    : t('auth_files.weight_hint')
+                }
+              >
+                <span className={styles.metaLabel}>{t('auth_files.weight_display')}</span>
+                <span className={`${styles.metaValue} ${styles.weightValue}`}>
+                  {isWeightDecayed ? (
+                    <>
+                      <span className={styles.weightEffective}>{effectiveWeightValue}</span>
+                      <span className={styles.weightSeparator}>/</span>
+                      <span className={styles.weightBase}>{displayWeight}</span>
+                    </>
+                  ) : (
+                    displayWeight
+                  )}
+                </span>
+              </div>
+            )}
+            {survivalDays !== undefined && (
+              <div
+                className={`${styles.metaItem} ${styles.survivalBadge} ${survivalBadgeClass ?? ''}`}
+                title={t(`auth_files.survival_tier_${survivalTier}_hint`)}
+              >
+                <span className={styles.metaLabel}>{t('auth_files.survival_days_display')}</span>
+                <span className={`${styles.metaValue} ${styles.survivalValue}`}>
+                  {t(`auth_files.survival_tier_${survivalTier}_label`)}
+                  <span className={styles.survivalSeparator}>·</span>
+                  {t('auth_files.survival_days_value', { days: survivalDays })}
+                </span>
+              </div>
+            )}
           </div>
 
           {rawStatusMessage && hasStatusWarning && (
-            <div className={styles.healthStatusMessage} title={rawStatusMessage}>
+            <div className={styles.healthStatusMessage} title={displayStatusMessage}>
               <IconInfo className={styles.messageIcon} size={14} />
-              <span>{rawStatusMessage}</span>
+              <span>{displayStatusMessage}</span>
             </div>
           )}
 

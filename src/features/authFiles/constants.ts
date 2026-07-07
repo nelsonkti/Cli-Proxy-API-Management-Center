@@ -208,6 +208,24 @@ export const parsePriorityValue = (value: unknown): number | undefined => {
   return Number.isSafeInteger(parsed) ? parsed : undefined;
 };
 
+export const parseWeightValue = (value: unknown): number | undefined => {
+  if (typeof value === 'number') {
+    if (!Number.isInteger(value)) return undefined;
+    if (value === 0) return 0; // 0 means "not set"
+    if (value < 1 || value > 100) return undefined;
+    return value;
+  }
+
+  if (typeof value !== 'string') return undefined;
+  const trimmed = value.trim();
+  if (!trimmed || !INTEGER_STRING_PATTERN.test(trimmed)) return undefined;
+  const parsed = Number.parseInt(trimmed, 10);
+  if (!Number.isSafeInteger(parsed)) return undefined;
+  if (parsed === 0) return 0; // 0 means "not set"
+  if (parsed < 1 || parsed > 100) return undefined;
+  return parsed;
+};
+
 export const normalizeExcludedModels = (value: unknown): string[] => {
   if (!Array.isArray(value)) return [];
 

@@ -142,6 +142,24 @@ export function AuthFilesPrefixProxyEditorModal(props: AuthFilesPrefixProxyEdito
                     disabled={disableControls || editor.saving || !editor.json}
                     onChange={(e) => onChange('priority', e.target.value)}
                   />
+                  <Input
+                    label={t('auth_files.weight_label')}
+                    value={editor.weight}
+                    placeholder={t('auth_files.weight_placeholder')}
+                    hint={t('auth_files.weight_hint')}
+                    disabled={disableControls || editor.saving || !editor.json}
+                    onChange={(e) => onChange('weight', e.target.value)}
+                  />
+                  {(editor.providerKey === 'claude' || editor.providerKey === 'codex') && (
+                    <Input
+                      label={t('auth_files.quota_cooldown_threshold_label')}
+                      value={editor.quotaCooldownThreshold}
+                      placeholder={t('auth_files.quota_cooldown_threshold_placeholder')}
+                      hint={t('auth_files.quota_cooldown_threshold_hint')}
+                      disabled={disableControls || editor.saving || !editor.json}
+                      onChange={(e) => onChange('quotaCooldownThreshold', e.target.value)}
+                    />
+                  )}
                   {editor.providerKey === 'codex' && (
                     <div className="form-group">
                       <label>{t('auth_files.codex_websockets_label')}</label>
