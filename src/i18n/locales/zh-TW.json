@@ -236,7 +236,6 @@
     "health_status_disabled": "已停用",
     "health_status_unknown": "未知",
     "health_status_no_message": "暫無狀態說明",
-    "status_message_quota_threshold_cooldown": "配額閾值冷卻中",
     "last_refresh_label": "最近重新整理",
     "refresh_not_available": "暫無",
     "refresh_just_now": "剛剛",
@@ -288,26 +287,7 @@
     "sort_default": "預設",
     "sort_az": "A-Z 名稱",
     "sort_priority": "優先順序",
-    "sort_weight": "權重",
     "priority_display": "優先順序",
-    "weight_display": "權重",
-    "survival_days_display": "存活天數",
-    "survival_days_value": "{{days}} 天",
-    "survival_tier_new_label": "新帳號",
-    "survival_tier_new_hint": "帳號存活不足 7 天",
-    "survival_tier_stable_label": "穩定",
-    "survival_tier_stable_hint": "帳號已存活 7 天以上",
-    "survival_tier_senior_label": "資深",
-    "survival_tier_senior_hint": "帳號已存活 20 天以上",
-    "survival_tier_veteran_label": "元老",
-    "survival_tier_veteran_hint": "帳號已存活 30 天以上",
-    "weight_hint": "權重值越高，分配到的請求越多（範圍 1-100，預設 1）",
-    "weight_decayed_hint": "當前有效權重 {{effective}}（基礎權重 {{base}}），因連續失敗自動降低",
-    "weight_label": "權重（weight）",
-    "weight_placeholder": "1-100，預設 1",
-    "quota_cooldown_threshold_label": "提前冷卻閾值",
-    "quota_cooldown_threshold_hint": "當 5 小時剩餘額度低於該百分比時，提前冷卻整個帳號（範圍 1-100，0 表示不限制）",
-    "quota_cooldown_threshold_placeholder": "1-100，0 表示不限制",
     "page_size_label": "單頁數量",
     "page_size_unit": "個/頁",
     "view_mode_paged": "分頁顯示",
@@ -552,7 +532,11 @@
     "plan_supergrok_heavy": "SuperGrok Heavy",
     "pay_as_you_go_label": "按量付費",
     "pay_as_you_go_enabled": "已啟用，封頂 {{cap}}",
-    "pay_as_you_go_disabled": "未啟用"
+    "pay_as_you_go_disabled": "未啟用",
+    "weekly_limit": "週限額",
+    "used_percent": "已用 {{percent}}",
+    "reset_at": "重置 {{time}}",
+    "product_usage": "{{product}} 使用"
   },
   "vertex_import": {
     "title": "Vertex JSON 登入",
@@ -1364,7 +1348,27 @@
     "gate_step2_action": "我已閱讀並理解上述風險",
     "gate_step3_prompt": "如需確認，請在下方輸入框中鍵入 “{{token}}”",
     "gate_step3_action": "安裝此插件",
-    "gate_step3_hint": "請輸入上方顯示的完整識別碼以啟用安裝。"
+    "gate_step3_hint": "請輸入上方顯示的完整識別碼以啟用安裝。",
+    "install_version_latest_mode": "最新穩定版",
+    "install_version_latest_hint": "安裝時由後端解析；目前列表版本為 {{version}}。",
+    "install_version_release_mode": "選擇歷史版本",
+    "install_version_release_hint": "從 GitHub Releases 讀取可安裝標籤。",
+    "install_version_manual_mode": "手動發布標籤",
+    "install_version_manual_hint": "僅在自動讀取不可用時使用。",
+    "install_versions_loading": "正在讀取 GitHub Releases...",
+    "install_versions_load_failed": "無法自動讀取發布版本",
+    "install_version_non_github": "此插件倉庫不是 GitHub 倉庫",
+    "install_versions_empty": "未讀取到可選發布版本。",
+    "install_versions_only_prerelease": "目前只剩預發布版本，請開啟預發布版本後選擇。",
+    "install_version_release_select": "選擇發布版本",
+    "install_version_release_placeholder": "選擇發布版本",
+    "install_version_prerelease_badge": "預發布",
+    "install_version_assets_count": "{{count}} 個資產",
+    "install_version_show_prerelease": "顯示預發布版本",
+    "install_version_manual_placeholder": "例如 v0.1.4",
+    "install_version_manual_error": "發布標籤只能包含字母、數字、點、底線、加號和連字號，且不能包含空格或斜線。",
+    "install_version_current_selected": "目前已安裝 {{version}}，請選擇其他版本。",
+    "install_version_releases_link": "查看 GitHub Releases"
   },
   "plugin_resource": {
     "title": "插件頁面",
@@ -1534,7 +1538,8 @@
     "categories": {
       "title": "提供商",
       "activeCount": "{{active}}/{{total}} 活躍",
-      "sponsors": "贊助商"
+      "sponsors": "贊助商",
+      "quickFill": "快速填入"
     },
     "providerNames": {
       "gemini": "Gemini",
@@ -1544,7 +1549,9 @@
       "vertex": "Vertex",
       "openaiCompatibility": "OpenAI 相容",
       "apikeyFun": "APIKEY.FUN",
-      "code0": "Code0"
+      "code0": "Code0",
+      "fennoAI": "FennoAI",
+      "qiniuCloud": "七牛雲"
     },
     "table": {
       "key": "金鑰",
@@ -1593,7 +1600,9 @@
       "urlHint": "不同 URL 的使用規範一致,儲存時只會寫入目前分組協議對應位址。",
       "urlOptions": {
         "standard": "普通 URL",
-        "direct": "專線直連 URL"
+        "direct": "專線直連 URL",
+        "domestic": "中國大陸線路",
+        "overseas": "海外線路"
       },
       "modelsTitle": "協議模型設定",
       "modelsHint": "可分別限制或別名映射 Codex API、Anthropic、Gemini 與 OpenAI 相容入口的模型。",
@@ -1622,6 +1631,10 @@
         "openai": "OpenAI 相容",
         "gemini": "Gemini",
         "codexResponses": "Codex API (Responses)"
+      },
+      "urlOptionDescriptions": {
+        "domestic": "面向中國大陸使用者和部署在中國大陸網路環境中的業務，通常可獲得更低延遲。",
+        "overseas": "面向海外部署、跨境存取或需要存取境外模型的業務。"
       }
     },
     "status": {
@@ -1699,7 +1712,12 @@
         "nameRequired": "名稱必填",
         "apiKeyRequired": "至少填寫一個 API 金鑰",
         "baseUrlRequired": "服務位址必填"
-      }
+      },
+      "showAllEntries": "顯示全部（{{count}}）",
+      "showFewerEntries": "收起",
+      "proxyBadge": "代理",
+      "modelBadgeImage": "圖片",
+      "modelBadgeThinking": "Thinking"
     },
     "delete": {
       "title": "刪除資源",

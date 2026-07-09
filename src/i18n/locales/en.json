@@ -236,7 +236,6 @@
     "health_status_disabled": "Disabled",
     "health_status_unknown": "Unknown",
     "health_status_no_message": "No status message",
-    "status_message_quota_threshold_cooldown": "Quota threshold cooldown",
     "last_refresh_label": "Last Refresh",
     "refresh_not_available": "N/A",
     "refresh_just_now": "Just now",
@@ -288,26 +287,7 @@
     "sort_default": "Default",
     "sort_az": "A-Z Name",
     "sort_priority": "Priority",
-    "sort_weight": "Weight",
     "priority_display": "Priority",
-    "weight_display": "Weight",
-    "survival_days_display": "Age",
-    "survival_days_value": "{{days}}d",
-    "survival_tier_new_label": "New",
-    "survival_tier_new_hint": "Account is less than 7 days old",
-    "survival_tier_stable_label": "Stable",
-    "survival_tier_stable_hint": "Account has survived 7+ days",
-    "survival_tier_senior_label": "Senior",
-    "survival_tier_senior_hint": "Account has survived 20+ days",
-    "survival_tier_veteran_label": "Veteran",
-    "survival_tier_veteran_hint": "Account has survived 30+ days",
-    "weight_hint": "Higher weight = more requests distributed (range 1-100, default 1)",
-    "weight_decayed_hint": "Effective weight {{effective}} (base {{base}}), auto-reduced due to consecutive failures",
-    "weight_label": "Weight",
-    "weight_placeholder": "1-100, default 1",
-    "quota_cooldown_threshold_label": "Proactive cooldown threshold",
-    "quota_cooldown_threshold_hint": "Cool down the account when the 5-hour remaining quota drops below this percentage (range 1-100; 0 disables)",
-    "quota_cooldown_threshold_placeholder": "1-100, 0 to disable",
     "page_size_label": "Per page",
     "page_size_unit": "items",
     "view_mode_paged": "Paged",
@@ -552,7 +532,11 @@
     "plan_supergrok_heavy": "SuperGrok Heavy",
     "pay_as_you_go_label": "Pay as you go",
     "pay_as_you_go_enabled": "Enabled, cap {{cap}}",
-    "pay_as_you_go_disabled": "Disabled"
+    "pay_as_you_go_disabled": "Disabled",
+    "weekly_limit": "Weekly limit",
+    "used_percent": "Used {{percent}}",
+    "reset_at": "Resets {{time}}",
+    "product_usage": "{{product}} usage"
   },
   "vertex_import": {
     "title": "Vertex JSON Login",
@@ -1338,7 +1322,27 @@
     "gate_step2_action": "I have read and understand these risks",
     "gate_step3_prompt": "To confirm, type \"{{token}}\" in the box below",
     "gate_step3_action": "Install this plugin",
-    "gate_step3_hint": "Enter the exact identifier shown above to enable installation."
+    "gate_step3_hint": "Enter the exact identifier shown above to enable installation.",
+    "install_version_latest_mode": "Latest stable",
+    "install_version_latest_hint": "Resolved by the backend during install. Current listed version: {{version}}.",
+    "install_version_release_mode": "Choose release",
+    "install_version_release_hint": "Read installable tags from GitHub Releases.",
+    "install_version_manual_mode": "Manual release tag",
+    "install_version_manual_hint": "Use only when automatic release loading is unavailable.",
+    "install_versions_loading": "Loading GitHub Releases...",
+    "install_versions_load_failed": "Failed to load release versions",
+    "install_version_non_github": "This plugin repository is not a GitHub repository",
+    "install_versions_empty": "No selectable releases were found.",
+    "install_versions_only_prerelease": "Only prerelease versions are available. Show prereleases to choose one.",
+    "install_version_release_select": "Choose release version",
+    "install_version_release_placeholder": "Choose release version",
+    "install_version_prerelease_badge": "prerelease",
+    "install_version_assets_count": "{{count}} assets",
+    "install_version_show_prerelease": "Show prerelease versions",
+    "install_version_manual_placeholder": "For example v0.1.4",
+    "install_version_manual_error": "Release tags can only contain letters, numbers, dots, underscores, plus signs, and hyphens; spaces and slashes are not allowed.",
+    "install_version_current_selected": "{{version}} is already installed. Choose another version.",
+    "install_version_releases_link": "View GitHub Releases"
   },
   "plugin_resource": {
     "title": "Plugin Page",
@@ -1508,7 +1512,8 @@
     "categories": {
       "title": "Providers",
       "activeCount": "{{active}}/{{total}} active",
-      "sponsors": "Sponsors"
+      "sponsors": "Sponsors",
+      "quickFill": "Quick Fill"
     },
     "providerNames": {
       "gemini": "Gemini",
@@ -1518,7 +1523,9 @@
       "vertex": "Vertex",
       "openaiCompatibility": "OpenAI Compatible",
       "apikeyFun": "APIKEY.FUN",
-      "code0": "Code0"
+      "code0": "Code0",
+      "fennoAI": "FennoAI",
+      "qiniuCloud": "Qiniu Cloud"
     },
     "table": {
       "key": "Key",
@@ -1567,7 +1574,9 @@
       "urlHint": "All URLs use the same API conventions. Saving writes only the endpoint for the current grouped protocol.",
       "urlOptions": {
         "standard": "Standard URL",
-        "direct": "Direct URL"
+        "direct": "Direct URL",
+        "domestic": "China mainland route",
+        "overseas": "Overseas route"
       },
       "modelsTitle": "Protocol model settings",
       "modelsHint": "Configure model allowlists or aliases separately for Codex API, Anthropic, Gemini, and OpenAI-compatible routes.",
@@ -1596,6 +1605,10 @@
         "openai": "OpenAI Compatible",
         "gemini": "Gemini",
         "codexResponses": "Codex API (Responses)"
+      },
+      "urlOptionDescriptions": {
+        "domestic": "For users and workloads in mainland China; usually lower latency in mainland networks.",
+        "overseas": "For overseas deployments, cross-border access, or workloads that need overseas models."
       }
     },
     "status": {
@@ -1673,7 +1686,12 @@
         "nameRequired": "Name is required",
         "apiKeyRequired": "At least one API key is required",
         "baseUrlRequired": "Base URL is required"
-      }
+      },
+      "showAllEntries": "Show all ({{count}})",
+      "showFewerEntries": "Show fewer",
+      "proxyBadge": "Proxy",
+      "modelBadgeImage": "Image",
+      "modelBadgeThinking": "Thinking"
     },
     "delete": {
       "title": "Delete resource",
