@@ -438,7 +438,7 @@ export function AuthFilesPage() {
       const matchType = normalizedFilter === 'all' || type === normalizedFilter;
       const matchSearch =
         !normalizedSearch ||
-        [item.name, item.type, item.provider].some((value) => {
+        [item.name, item.type, item.provider, item.proxy_url, item.proxyUrl, item.note].some((value) => {
           const content = (value || '').toString();
           return wildcardSearch
             ? wildcardSearch.test(content)
