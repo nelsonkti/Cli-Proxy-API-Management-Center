@@ -385,7 +385,19 @@
     "quota_refresh_single": "重新整理配額",
     "quota_refresh_hint": "僅重新整理該驗證檔案的配額",
     "quota_refresh_success": "已重新整理「{{name}}」的配額",
-    "quota_refresh_failed": "重新整理「{{name}}」的配額失敗：{{message}}"
+    "quota_refresh_failed": "重新整理「{{name}}」的配額失敗：{{message}}",
+    "survival_days_display": "存活天數",
+    "survival_days_value": "{{days}} 天",
+    "survival_tier_new_label": "新手",
+    "survival_tier_stable_label": "穩定",
+    "survival_tier_senior_label": "資深",
+    "survival_tier_veteran_label": "老兵",
+    "survival_tier_new_hint": "存活不滿 7 天",
+    "survival_tier_stable_hint": "存活 7～19 天",
+    "survival_tier_senior_hint": "存活 20～29 天",
+    "survival_tier_veteran_hint": "存活 30 天以上",
+    "proxy_url_badge": "代理",
+    "note_display": "備註"
   },
   "antigravity_subscription": {
     "subscription_label": "訂閱",

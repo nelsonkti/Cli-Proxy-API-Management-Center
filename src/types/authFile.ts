@@ -39,6 +39,8 @@ export interface AuthFileItem {
   effective_weight?: number | string;
   consecutive_fails?: number;
   note?: string;
+  proxy_url?: string;
+  proxyUrl?: string;
   imported_at?: string | number;
   survival_days?: number;
   recent_requests?: RecentRequestBucket[];

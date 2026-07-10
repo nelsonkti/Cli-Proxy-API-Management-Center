@@ -1032,6 +1032,7 @@
 
   .typeBadge,
   .stateBadge,
+  .proxyBadge,
   .subscriptionBadge,
   .subscriptionBadgePremium {
     padding: 3px 7px;
@@ -1203,6 +1204,34 @@
   color: var(--text-secondary);
   background: color-mix(in srgb, var(--bg-tertiary) 82%, transparent);
   border: 1px dashed color-mix(in srgb, var(--border-primary) 90%, transparent);
+}
+
+.proxyBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--info-badge-text, #1e40af);
+  background: var(--info-badge-bg, #dbeafe);
+  border: 1px solid var(--info-badge-border, #93c5fd);
+  max-width: 220px;
+  overflow: hidden;
+}
+
+.proxyBadgeLabel {
+  opacity: 0.75;
+  flex-shrink: 0;
+}
+
+.proxyBadgeValue {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 700;
 }
 
 .subscriptionBadge {
@@ -1400,6 +1429,23 @@
 
 :global([data-theme='dark']) .survivalBadgeVeteran .survivalValue {
   color: #ffd862;
+}
+
+.proxyMetaBadge {
+  min-width: 0;
+}
+
+.proxyMetaValue {
+  color: var(--info-color, #2563eb);
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 180px;
+}
+
+:global([data-theme='dark']) .proxyMetaValue {
+  color: #60a5fa;
 }
 
 .noteText {

@@ -40,6 +40,23 @@ import styles from '@/pages/AuthFilesPage.module.scss';
 
 const HEALTHY_STATUS_MESSAGES = new Set(['ok', 'healthy', 'ready', 'success', 'available']);
 
+const parseProxyHost = (raw: unknown): string | undefined => {
+  if (typeof raw !== 'string') return undefined;
+  const url = raw.trim();
+  if (!url) return undefined;
+  try {
+    // URL() needs a known scheme; normalise to http:// for parsing
+    const normalised = url.replace(/^[a-zA-Z][a-zA-Z0-9+\-.]*:\/\//, 'http://');
+    return new URL(normalised).hostname || undefined;
+  } catch {
+    // Fallback: strip scheme then strip userinfo and port/path
+    const noScheme = url.replace(/^[a-zA-Z][a-zA-Z0-9+\-.]*:\/\//, '');
+    const noUser = noScheme.replace(/^[^@]+@/, '');
+    const host = noUser.split(/[/:?#]/)[0];
+    return host || undefined;
+  }
+};
+
 const STATUS_MESSAGE_I18N_KEYS: Record<string, string> = {
   'quota threshold cooldown': 'auth_files.status_message_quota_threshold_cooldown',
 };
@@ -139,6 +156,8 @@ export function AuthFileCard(props: AuthFileCardProps) {
     effectiveWeightValue !== undefined &&
     effectiveWeightValue < weightValue;
   const displayWeight = weightValue !== undefined && weightValue > 0 ? weightValue : undefined;
+  const proxyHost = parseProxyHost(file.proxy_url ?? file.proxyUrl ?? file['proxy_url']);
+
   const noteValue = typeof file.note === 'string' ? file.note.trim() : '';
   const rawSurvivalDays = file.survival_days ?? file['survival_days'];
   const survivalDays =
@@ -297,6 +316,12 @@ export function AuthFileCard(props: AuthFileCardProps) {
                   <span className={styles.survivalSeparator}>·</span>
                   {t('auth_files.survival_days_value', { days: survivalDays })}
                 </span>
+              </div>
+            )}
+            {proxyHost && (
+              <div className={`${styles.metaItem} ${styles.proxyMetaBadge}`} title={String(file.proxy_url ?? file['proxy_url'] ?? '')}>
+                <span className={styles.metaLabel}>{t('auth_files.proxy_url_badge')}</span>
+                <span className={`${styles.metaValue} ${styles.proxyMetaValue}`}>{proxyHost}</span>
               </div>
             )}
           </div>

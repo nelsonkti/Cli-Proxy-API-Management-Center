@@ -385,7 +385,19 @@
     "quota_refresh_single": "Refresh quota",
     "quota_refresh_hint": "Refresh quota only for this credential",
     "quota_refresh_success": "Quota refreshed for \"{{name}}\"",
-    "quota_refresh_failed": "Failed to refresh quota for \"{{name}}\": {{message}}"
+    "quota_refresh_failed": "Failed to refresh quota for \"{{name}}\": {{message}}",
+    "survival_days_display": "Survival",
+    "survival_days_value": "{{days}} days",
+    "survival_tier_new_label": "New",
+    "survival_tier_stable_label": "Stable",
+    "survival_tier_senior_label": "Senior",
+    "survival_tier_veteran_label": "Veteran",
+    "survival_tier_new_hint": "Less than 7 days",
+    "survival_tier_stable_hint": "7–19 days",
+    "survival_tier_senior_hint": "20–29 days",
+    "survival_tier_veteran_hint": "30+ days",
+    "proxy_url_badge": "Proxy",
+    "note_display": "Note"
   },
   "antigravity_subscription": {
     "subscription_label": "Subscription",

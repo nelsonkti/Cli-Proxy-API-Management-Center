@@ -379,7 +379,19 @@
     "quota_refresh_single": "Обновить квоту",
     "quota_refresh_hint": "Обновить квоту только для этих учётных данных",
     "quota_refresh_success": "Квота для \"{{name}}\" обновлена",
-    "quota_refresh_failed": "Не удалось обновить квоту для \"{{name}}\": {{message}}"
+    "quota_refresh_failed": "Не удалось обновить квоту для \"{{name}}\": {{message}}",
+    "survival_days_display": "Время работы",
+    "survival_days_value": "{{days}} дн.",
+    "survival_tier_new_label": "Новый",
+    "survival_tier_stable_label": "Стабильный",
+    "survival_tier_senior_label": "Старший",
+    "survival_tier_veteran_label": "Ветеран",
+    "survival_tier_new_hint": "Менее 7 дней",
+    "survival_tier_stable_hint": "7–19 дней",
+    "survival_tier_senior_hint": "20–29 дней",
+    "survival_tier_veteran_hint": "30+ дней",
+    "proxy_url_badge": "Прокси",
+    "note_display": "Заметка"
   },
   "antigravity_subscription": {
     "subscription_label": "Подписка",
